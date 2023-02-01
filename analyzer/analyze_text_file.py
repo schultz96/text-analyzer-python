@@ -28,10 +28,9 @@ def analyze_text_file(text_file_path):
     # encoding may need to be changed based on where this file came from (didnt work right away on windows)
     with open(text_file_path, 'r', encoding='utf-8') as text_file:
         lines = text_file.readlines()
-        for line in lines:
+        for idx, line in enumerate(lines):
             # skip first 3 lines (they are title and 2 lines of blank spacing)
-            if num_lines < 3:
-                num_lines += 1
+            if idx < 3:
                 continue
 
             # count number of lines
@@ -60,6 +59,9 @@ def analyze_text_file(text_file_path):
                     word_count_dictionary[word] += 1
                 else:
                     word_count_dictionary[word] = 1
+
+            log_chapter_summary(num_paragraphs, num_lines, num_lines_with_text, num_words, num_letters, num_vowels,
+                                num_consonants, [], [])
 
     # get top 5 words by count
     top_five_words = count_top_words_count(word_count_dictionary, 5)
